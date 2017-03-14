@@ -4,9 +4,10 @@ Chapter 1 Ruby
 Day 1
 -----
 
-* Interesting: "unless.class" (and other keywords) will still "open a bracket" and only throw an error when you type "end".
+* Interesting: `unless.class` (and other keywords) will still "open a bracket" and only throw an error when you type "end".
 
-Find:
+### Find
+
 * Ruby API
   * http://ruby-doc.org/core
   * find there for example the "times" method defined for Integers: http://ruby-doc.org/core-2.4.0/Integer.html#method-i-times
@@ -14,24 +15,25 @@ Find:
   * seems to be outdated though. Is there a free version of the third edition?
 * A method that substitutes part of a string -- gsub / gsub! (inplace)
 * Info about Ruby's regular expressions -- https://ruby-doc.org/core/Regexp.html
-  * use #match or =~ operator. "If a match is found, the operator returns index of first match in string, otherwise it returns nil."
+  * use `#match` or `=~` operator. "If a match is found, the operator returns index of first match in string, otherwise it returns nil."
 * ~ about ranges -- https://ruby-doc.org/core-2.4.0/Range.html
-  * can I build something like (feb..oct)?
+  * can I build something like (feb..oct)? [yup.](1-ruby/month.rb)
 
-Do:
-* "Hello, Ruby".index("Ruby")
-* To load a file in IRB use "require './file.rb'"
+### Do
+
+* ``"Hello, Ruby".index("Ruby")``
+* To load a file in IRB use `require './file.rb'`
 
 Day 2
 -----
 
 * What's the difference between string and symbol, e.g. when using it as a key in a Hash?
-* Is :[] a symbol as well?
+* Is `:[]` a symbol as well?
 * Did he talk about how a function call is taking place? I find the notation "without brackets" surprising from a Python view (not from a Haskell view though)
-* what does "yield" do? Activate a codeblock? -- yes, seems right.
-* Can we discuss the "pass_block" example?
+* what does `yield` do? Activate a codeblock? -- yes, seems right.
+* Can we discuss the `pass_block` example?
 * Understand Ruby metamodel (p. 42)
-* BasicObject seems to be "new".
+* `BasicObject` seems to be "new".
 * Did you know that "Flavors" was a programming language? :) A LISP-Dialect.
 
 Day 3
@@ -39,9 +41,9 @@ Day 3
 
 * How can I prevent accidentally overriding an internal open class?
 * Can I break ruby by exploiting open classes?
-* The API is so much easier: Roman.i versus Roman.number_for "i". --> is this worth the "risk of breaking everything"?
-* You can literally implement def or attr_accessor with a few lines of code in a module. --> how? why?
-* does def self.X define a class-method?
+* "The API is so much easier: `Roman.i` versus `Roman.number_for "i"`". --> is this worth the "risk of breaking everything"?
+* "You can literally implement `def` or `attr_accessor` with a few lines of code in a module." --> how? why?
+* does `def self.X` define a class-method?
 
 Chapter 2 Io
 ============
@@ -65,7 +67,7 @@ typed? Support your answer with code.
     * https://www.destroyallsoftware.com/compendium/strong-and-weak-typing/6b0dd1ec18ab6102
     * I would say:
         * not static, as we can say `a := true` and then `a = 1`.
-        * probably no implicit conversion: 1 + "1"
+        * probably no implicit conversion: `1 + "1"`
         * probably memory safe and enforced rules.
 
 * Is 0 true or false? What about the empty string? -- both true
@@ -82,7 +84,7 @@ typed? Support your answer with code.
 
 * to run a file just "call it" like: `io 02-io/cars.io`
 * to Execute the code in a slot given its name.
-    * maybe they meant something like `runSlot.io`. But that does not look like it runs by slotname, rather it evaluates a string. Also, why is it `doString(...)` and not `... doString`?
+    * maybe they meant something like [`runSlot.io`](2-io/runSlot.io). But that does not look like it runs by slotname, rather it evaluates a string. Also, why is it `doString(...)` and not `... doString`?
 
 Chapter 3 - Prolog
 ==================
@@ -92,7 +94,7 @@ Day 1
 
 ### Do
 * Find one reference for the Prolog version you’re using
-    * /usr/share/doc/gprolog-docs/
+    * `/usr/share/doc/gprolog-docs/`
 
 Day 2
 -----
