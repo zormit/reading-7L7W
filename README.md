@@ -107,3 +107,31 @@ Day 2
     * A, Fibonacci: http://www.cs.utexas.edu/~cannata/cs345/Class%20Notes/Prolog%20examples.pdf
     * A, Factorials: https://www.cpp.edu/~jrfisher/www/prolog_tutorial/2_2.html
         * TODO: Exercise at the bottom of Factorial.
+
+Chapter 4 - Scala
+=================
+
+Day 1
+-----
+* "Unlike Ruby, all method definitions have parameter types and names." -- I don't understand this sentence (p. 148)
+    * It is for example possible to remove the return type of a method.
+    * But it is not possible to remove the type of a method parameter:
+        ```
+        scala> class Person(firstName)
+        <console>:1: error: ':' expected but ')' found.
+        class Person(firstName)
+        ```
+* I didn't understand how to make use of this "companion object", see [ring.scala](4-scala/ring.scala).
+
+### Find
+
+* The Scala API -- [here](https://www.scala-lang.org/api/current/)
+* A comparison of Java and Scala -- I'm not so interested in that.
+* A discussion of val versus var -- [here](https://sanaulla.info/2009/07/02/val-versus-var-in-scala-2/)
+
+### Do
+
+* Write a game that will take a tic-tac-toe board with X, O, and blank
+characters and detect the winner or whether there is a tie or no
+winner yet. Use classes where appropriate.
+* Bonus problem: Let two players play tic-tac-toe.
