@@ -34,6 +34,10 @@ class Game {
   }
   // END CONSTRUCTORS
 
+  def fill(idx: Int, move: Move) {
+    fill((idx-1) % 3, (idx-1) / 3, move)
+  }
+
   def fill(col: Int, row: Int, move: Move) {
     if(rows(row)(col) == Empty) {
       rows(row)(col) = move
@@ -127,11 +131,12 @@ class Game {
 class Tests {
   var game: Game = new Game
   game.xFill(1, 1)
-  game.oFill(0, 2)
+  game.fill(2, 2, Move.X)
+  game.fill(7, Move.O)
   // https://www.safaribooksonline.com/library/view/scala-cookbook/9781449340292/ch01s03.html
   val expectedString = """___
                          |_X_
-                         |O__""".stripMargin
+                         |O_X""".stripMargin
   // http://alvinalexander.com/scala/scala-compare-strings-with-equal-operator-method-not-equals
   assert (game.toString == expectedString, "the game is not in expected state.")
 
