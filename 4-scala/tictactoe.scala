@@ -127,6 +127,41 @@ class Game {
   }
 }
 
+class InteractiveGame {
+  import Move._
+  val game = new Game
+  var currentPlayer = Move.X
+  var stopGame = false
+  println("Game starting...")
+  println("(enter 0 to exit game)\n")
+
+  while(game.result == null && !stopGame) {
+    println("Next move (1-9) by player " + currentPlayer)
+
+    var nextMove = Console.readInt()
+    if (nextMove == 0) {
+      println("exiting...")
+      stopGame = true
+    } else if (0 < nextMove && nextMove < 10){
+      game.fill(nextMove, currentPlayer)
+      println(game)
+      currentPlayer = currentPlayer match {
+          case X => O
+          case O => X
+      }
+    } else {
+      println("invalid input. try again.")
+    }
+  }
+
+  val result = game.result
+  result match {
+    case Empty => println("The game is draw.")
+    case X => println("X won.")
+    case O => println("O won.")
+  }
+}
+
 // Tests. Put here, because it's easier for a proof of concept, modules on the console seems to be annoying
 class Tests {
   var game: Game = new Game
@@ -166,3 +201,4 @@ class Tests {
   assert (game.result == Move.Empty, "the game is draw.")
 }
 new Tests
+new InteractiveGame
