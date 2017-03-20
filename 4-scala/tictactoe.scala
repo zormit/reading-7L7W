@@ -50,6 +50,68 @@ class Game {
     fill(col, row, O)
   }
 
+  // Scala question: when do I need "=" in a method def?
+  def result(): Move = {
+    /* the game is over:
+     * A) when one of the players filled
+     *    their mark in one row, column or diagonal
+     * B) when the board is completely filled.
+     *
+     * brute force solution is ok for the size of 3x3,
+     * although it is very inelegant to look at each field up to three times.
+     */
+
+    // there are #size rows and columns and 2 diagonals.
+    val lines = new Array[Array[Move]](2*size + 2)
+                // one problem: this contains nulls.
+                // so looping over it might result in null pointer exception.
+    var lineIdx: Int = 0
+
+    // collect rows
+    rows.foreach { row =>
+      lines(lineIdx) = row
+      lineIdx += 1
+    }
+
+    // collect columns
+    for (colIdx <- 0 until size) {
+      val col = new Array[Move](size)
+      for (rowIdx <- 0 until size) {
+        col(rowIdx) = rows(rowIdx)(colIdx)
+      }
+      lines(lineIdx) = col
+      lineIdx += 1
+    }
+
+    val diagDown = new Array[Move](size) // down: "\", row = col
+    val diagUp   = new Array[Move](size) // up:   "/", row = size-1-col
+    for (idx <- 0 until size) {
+      diagDown(idx) = rows(idx)(idx)
+      diagUp(idx)   = rows(idx)(size-1-idx)
+    }
+    lines(lineIdx)   = diagDown
+    lines(lineIdx+1) = diagUp
+
+    // internal sanity check
+    assert(!lines.contains(null), "not all lines were filled")
+
+    lines.foreach { line =>
+      val elements = line.distinct
+      if(elements.length == 1 && elements(0) != Empty) {
+        // we have a winner
+        return elements(0)
+      }
+    }
+
+    // we don't have a winner. is the game finished?
+    val ongoing = rows.flatten.contains(Empty)
+    if (!ongoing) {
+      return Empty // Draw
+    }
+
+    null // no decision yet. this null is ugly.
+  }
+
   override def toString: String = {
     var repr = ""
     rows.foreach { row =>
@@ -57,7 +119,7 @@ class Game {
       repr += rowDelimiter
     }
     // remove last delimiter
-    return repr.substring(0, repr.size-1)
+    repr.substring(0, repr.size-1)
   }
 }
 
@@ -73,8 +135,27 @@ val expectedString = """___
 // http://alvinalexander.com/scala/scala-compare-strings-with-equal-operator-method-not-equals
 assert (game.toString == expectedString, "the game is not in expected state.")
 
-var newGame ="""XOX
-               |_XO
-               |__O""".stripMargin
+var newGame = """XOX
+                |_XO
+                |__O""".stripMargin
 game = new Game(newGame)
 assert (game.toString == newGame, "the game is not in expected state.")
+assert (game.result == null, "the game should be not decided yet.")
+
+newGame = """XXX
+            |_XO
+            |__O""".stripMargin
+game = new Game(newGame)
+assert (game.result == Move.X, "the game is won by X.")
+
+newGame = """XXO
+            |_OX
+            |O_O""".stripMargin
+game = new Game(newGame)
+assert (game.result == Move.O, "the game is won by O.")
+
+newGame = """XOO
+            |OXX
+            |OXO""".stripMargin
+game = new Game(newGame)
+assert (game.result == Move.Empty, "the game is draw.")
