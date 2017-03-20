@@ -124,38 +124,40 @@ class Game {
 }
 
 // Tests. Put here, because it's easier for a proof of concept, modules on the console seems to be annoying
+class Tests {
+  var game: Game = new Game
+  game.xFill(1, 1)
+  game.oFill(0, 2)
+  // https://www.safaribooksonline.com/library/view/scala-cookbook/9781449340292/ch01s03.html
+  val expectedString = """___
+                         |_X_
+                         |O__""".stripMargin
+  // http://alvinalexander.com/scala/scala-compare-strings-with-equal-operator-method-not-equals
+  assert (game.toString == expectedString, "the game is not in expected state.")
 
-var game: Game = new Game
-game.xFill(1, 1)
-game.oFill(0, 2)
-// https://www.safaribooksonline.com/library/view/scala-cookbook/9781449340292/ch01s03.html
-val expectedString = """___
-                       |_X_
-                       |O__""".stripMargin
-// http://alvinalexander.com/scala/scala-compare-strings-with-equal-operator-method-not-equals
-assert (game.toString == expectedString, "the game is not in expected state.")
+  var newGame = """XOX
+                  |_XO
+                  |__O""".stripMargin
+  game = new Game(newGame)
+  assert (game.toString == newGame, "the game is not in expected state.")
+  assert (game.result == null, "the game should be not decided yet.")
 
-var newGame = """XOX
-                |_XO
-                |__O""".stripMargin
-game = new Game(newGame)
-assert (game.toString == newGame, "the game is not in expected state.")
-assert (game.result == null, "the game should be not decided yet.")
+  newGame = """XXX
+              |_XO
+              |__O""".stripMargin
+  game = new Game(newGame)
+  assert (game.result == Move.X, "the game is won by X.")
 
-newGame = """XXX
-            |_XO
-            |__O""".stripMargin
-game = new Game(newGame)
-assert (game.result == Move.X, "the game is won by X.")
+  newGame = """XXO
+              |_OX
+              |O_O""".stripMargin
+  game = new Game(newGame)
+  assert (game.result == Move.O, "the game is won by O.")
 
-newGame = """XXO
-            |_OX
-            |O_O""".stripMargin
-game = new Game(newGame)
-assert (game.result == Move.O, "the game is won by O.")
-
-newGame = """XOO
-            |OXX
-            |OXO""".stripMargin
-game = new Game(newGame)
-assert (game.result == Move.Empty, "the game is draw.")
+  newGame = """XOO
+              |OXX
+              |OXO""".stripMargin
+  game = new Game(newGame)
+  assert (game.result == Move.Empty, "the game is draw.")
+}
+new Tests
