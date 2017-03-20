@@ -21,7 +21,7 @@ class Game {
     val inputRows = board.split(rowDelimiter)
     for (rowIdx <- 0 until inputRows.size) {
       val inputRow = inputRows(rowIdx)
-      assert (inputRow.length == 3, "invalid input")
+      assert (inputRow.length == size, "invalid input")
       for (colIdx <- 0 until size) {
         val fieldValue = inputRow(colIdx).toString
         rows(rowIdx)(colIdx) = fieldValue match {
