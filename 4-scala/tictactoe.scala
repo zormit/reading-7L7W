@@ -46,14 +46,6 @@ class Game {
     }
   }
 
-  def xFill(col: Int, row: Int) {
-    fill(row, col, X)
-  }
-
-  def oFill(col: Int, row: Int) {
-    fill(col, row, O)
-  }
-
   // Scala question: when do I need "=" in a method def?
   def result(): Move = {
     /* the game is over:
